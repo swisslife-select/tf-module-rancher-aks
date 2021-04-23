@@ -1,0 +1,8 @@
+username = "<USERNAME>"
+password = "<PASSWORD>"
+address = "https://gitlab.com/api/v4/projects/<PROJECT_ID>/terraform/state/<STATEFILE_NAME>"
+lock_address = "https://gitlab.com/api/v4/projects/<PROJECT_ID>/terraform/state/<STATEFILE_NAME>/lock"
+unlock_address = "https://gitlab.com/api/v4/projects/<PROJECT_ID>/terraform/state/<STATEFILE_NAME>/lock"
+lock_method = "POST"
+unlock_method = "DELETE"
+retry_wait_min = "5"
