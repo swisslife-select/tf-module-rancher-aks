@@ -1,5 +1,6 @@
 module "network" {
   source              = "Azure/network/azurerm"
+  version             = "3.3.0"
   resource_group_name = azurerm_resource_group.rancher_aks.name
   address_space       = "10.0.0.0/16"
   subnet_prefixes     = ["10.0.0.0/20"]
@@ -10,6 +11,7 @@ module "network" {
 
 module "aks" {
   source                           = "Azure/aks/azurerm"
+  version                          = "4.8.0"
   resource_group_name              = azurerm_resource_group.rancher_aks.name
   client_id                        = ""
   client_secret                    = ""
