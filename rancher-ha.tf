@@ -9,6 +9,7 @@ module "aks" {
     
     azure_location      = var.azure_location
     aks_name_prefix     = var.aks_name_prefix
+    name_prefix         = var.aks_name_prefix
     aks_cluster_version = var.aks_kubernetes_version
 }
 

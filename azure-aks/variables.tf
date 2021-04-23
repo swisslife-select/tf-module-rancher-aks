@@ -34,7 +34,7 @@ variable "aks_cluster_version" {
 variable "aks_agents_pool_name" {
   type = string
   description = "Node Pool Name for AKS"
-  default = "rancher-nodes"
+  default = "rancher"
 }
 
 

@@ -28,7 +28,7 @@ variable "aks_name_prefix" {
 variable "aks_kubernetes_version" {
   type = string
   description = "Version of Rancher Management Cluster's Kubernetes"
-  default = "v1.20.5"
+  default = "1.20.5"
 }
 
 ## RANCHER VARIABLES
