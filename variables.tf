@@ -61,3 +61,26 @@ variable "nginx_ingress_ns" {
   default = "ingress-nginx"
 }
 
+variable "subscription_id" {
+  type = string
+  description = "Azure's subscription id"
+  default = ""
+}
+
+variable "tenant_id" {
+  type = string
+  description = "Azure's tenant id"
+  default = ""
+}
+
+variable "client_id" {
+  type = string
+  description = "Azure's client id"
+  default = ""
+}
+
+variable "client_secret" {
+  type = string
+  description = "Azure's client secret"
+  default = ""
+}

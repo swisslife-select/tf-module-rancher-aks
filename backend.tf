@@ -4,7 +4,12 @@
 # }
 
 
-terraform{
-    backend "http"{
+terraform {
+  backend "remote" {
+    organization = "belgaied"
+
+    workspaces {
+      name = "aks-tenant-test"
     }
+  }
 }
