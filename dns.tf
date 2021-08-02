@@ -19,11 +19,10 @@ data "kubernetes_service" "nginx_host" {
     ]
 }
 
-resource "azurerm_dns_a_record" "rancher_aks" {
-  name                = "rancher"
-  zone_name           = var.dns_zone_name
-  resource_group_name = var.dns_resource_group_name
-  ttl                 = 300
-  records             = [ data.kubernetes_service.nginx_host.status.0.load_balancer.0.ingress.0.ip]
-}
-
+# resource "azurerm_dns_a_record" "rancher_aks" {
+#   name                = "rancher"
+#   zone_name           = var.dns_zone_name
+#   resource_group_name = var.dns_resource_group_name
+#   ttl                 = 300
+#   records             = [ data.kubernetes_service.nginx_host.status.0.load_balancer.0.ingress.0.ip]
+# }
