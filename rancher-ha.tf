@@ -14,7 +14,7 @@ module "aks" {
 }
 
 module "rancher_server" {
-  source = "github.com/belgaied2/tf-module-rancher-server"
+  source = "github.com/swisslife-select/tf-module-rancher-server"
   rancher_k8s = {
     host                    = module.aks.host
     client_certificate      = base64decode(module.aks.client_certificate)
