@@ -18,5 +18,6 @@ resource "helm_release" "nginx-ingress" {
   version    = var.nginx_ingress_version
   namespace  = var.nginx_ingress_ns
   create_namespace = true
+  wait_for_jobs = true
 
 }
