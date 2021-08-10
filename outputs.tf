@@ -14,12 +14,6 @@ output "aks_credentials" {
 }
       
 output "aks" {
-  # Again, the value is not important because we're just
-  # using this for its dependencies.
-  value = {}
-
-  # Anything that refers to this output must wait until
-  # the actions for azurerm_monitor_diagnostic_setting.example
-  # to have completed first.
+  value = module.aks
   depends_on = [module.aks]
 }
