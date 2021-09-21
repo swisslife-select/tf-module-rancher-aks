@@ -1,25 +1,21 @@
-module "network" {
-  source              = "Azure/network/azurerm"
-  version             = "3.3.0"
-  resource_group_name = azurerm_resource_group.rancher_aks.name
-  address_space       = "10.0.0.0/16"
-  subnet_prefixes     = ["10.0.0.0/20"]
-  subnet_names        = ["rancher-subnet"]
-  depends_on          = [azurerm_resource_group.rancher_aks]
+resource "azurerm_subnet" "subnet" {
+  name                 = "rancher-subnet"
+  resource_group_name  = var.subnet_resource_group_name
+  virtual_network_name = var.subnet_virtual_network_name
+  address_prefixes     = var.subnet_address_prefixes
 }
-
 
 module "aks" {
   source                           = "Azure/aks/azurerm"
   version                          = "4.8.0"
   resource_group_name              = azurerm_resource_group.rancher_aks.name
-  client_id                        = ""
-  client_secret                    = ""
+  client_id                        = var.client_id
+  client_secret                    = var.client_secret
   kubernetes_version               = var.aks_cluster_version
   orchestrator_version             = var.aks_cluster_version
   prefix                           = var.aks_name_prefix
   network_plugin                   = "azure"
-  vnet_subnet_id                   = module.network.vnet_subnets[0]
+  vnet_subnet_id                   = azurerm_subnet.subnet.id
   os_disk_size_gb                  = var.aks_node_disk_size
   sku_tier                         = "Paid" # defaults to Free
   enable_role_based_access_control = false
@@ -49,5 +45,5 @@ module "aks" {
   net_profile_docker_bridge_cidr = "170.10.0.1/16"
   net_profile_service_cidr       = "10.1.0.0/16"
 
-  depends_on = [module.network]
+  depends_on = [azurerm_subnet.subnet]
 }

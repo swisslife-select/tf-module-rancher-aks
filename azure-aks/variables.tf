@@ -49,3 +49,30 @@ variable "azure_location" {
   description = "Location to be used for the Resource Group"
   default = "Germany West Central"
 }
+
+variable "subnet_resource_group_name" {
+  type = string
+  description = "Resource Group of the vn for the subnet of the rancher cluster"
+}
+
+variable "subnet_virtual_network_name" {
+  type = string
+  description = "Name of the vn for the subnet of the rancher cluster"
+}
+
+variable "subnet_address_prefixes" {
+  type = list(string)
+  description = "the subnet prefixes"
+}
+
+variable "client_id" {
+  description = "(Optional) The Client ID (appId) for the Service Principal used for the AKS deployment"
+  type        = string
+  default     = ""
+}
+
+variable "client_secret" {
+  description = "(Optional) The Client Secret (password) for the Service Principal used for the AKS deployment"
+  type        = string
+  default     = ""
+}

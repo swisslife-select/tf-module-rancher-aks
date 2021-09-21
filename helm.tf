@@ -8,7 +8,16 @@ provider "helm" {
   }
 }
 
+data "azurerm_resource_group" "subnet" {
+  name = var.subnet_resource_group_name
+}
 
+# grant network contributor role to aks principal for load balancers
+resource "azurerm_role_assignment" "aks_to_subnet_rg" {
+  scope                = data.azurerm_resource_group.subnet.id
+  role_definition_name = "Network Contributor"
+  principal_id         = module.aks.principal_id
+}
 
 # Install Rancher helm chart
 resource "helm_release" "nginx-ingress" {
@@ -20,4 +29,12 @@ resource "helm_release" "nginx-ingress" {
   create_namespace = true
   wait_for_jobs = true
 
+  set {
+    name  = "controller.service.loadBalancerIP"
+    value = "${var.ip_address}"
+  }
+
+  values = ["${file("${path.module}/internal-load-balancer.yml")}"]
+
+  depends_on = [module.aks, azurerm_role_assignment.aks_to_subnet_rg]
 }

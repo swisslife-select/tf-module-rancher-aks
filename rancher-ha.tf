@@ -11,6 +11,11 @@ module "aks" {
     aks_name_prefix     = var.aks_name_prefix
     name_prefix         = var.aks_name_prefix
     aks_cluster_version = var.aks_kubernetes_version
+    client_id           = var.client_id
+    client_secret       = var.client_secret
+    subnet_resource_group_name  = var.subnet_resource_group_name
+    subnet_virtual_network_name = var.subnet_virtual_network_name
+    subnet_address_prefixes     = var.subnet_address_prefixes
 }
 
 module "rancher_server" {

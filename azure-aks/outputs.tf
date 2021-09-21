@@ -18,3 +18,8 @@ output "host" {
   description = "Kube API Endpoint for use in KUBECONFIG"
   value = module.aks.host
 }
+
+output "principal_id" {
+  description = "principal_id of the aks"
+  value = module.aks.system_assigned_identity[0].principal_id
+}
