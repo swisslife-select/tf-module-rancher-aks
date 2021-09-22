@@ -88,7 +88,7 @@ variable "client_secret" {
   default     = ""
 }
 
-variable "ip_address" {
+variable "lb_ip_address" {
   description = "IP address of the rancher clusters load_balancer"
   type = string
 }

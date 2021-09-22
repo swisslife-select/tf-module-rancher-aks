@@ -12,15 +12,21 @@ data "azurerm_resource_group" "subnet" {
   name = var.subnet_resource_group_name
 }
 
+data "azurerm_virtual_network" "vnet" {
+  name                = var.subnet_virtual_network_name
+  resource_group_name = var.subnet_resource_group_name
+}
+
 # grant network contributor role to aks principal for load balancers
-resource "azurerm_role_assignment" "aks_to_subnet_rg" {
-  scope                = data.azurerm_resource_group.subnet.id
+resource "azurerm_role_assignment" "aks_to_vnet" {
+  scope                = data.azurerm_virtual_network.vnet.id
   role_definition_name = "Network Contributor"
   principal_id         = module.aks.principal_id
 }
 
 # Install Rancher helm chart
 resource "helm_release" "nginx-ingress" {
+  timeout    = 120
   repository = "https://kubernetes.github.io/ingress-nginx/"
   name       = "nginx-stable"
   chart      = "ingress-nginx"
@@ -31,10 +37,10 @@ resource "helm_release" "nginx-ingress" {
 
   set {
     name  = "controller.service.loadBalancerIP"
-    value = "${var.ip_address}"
+    value = "${var.lb_ip_address}"
   }
 
   values = ["${file("${path.module}/internal-load-balancer.yml")}"]
 
-  depends_on = [module.aks, azurerm_role_assignment.aks_to_subnet_rg]
+  depends_on = [module.aks, azurerm_role_assignment.aks_to_vnet]
 }
