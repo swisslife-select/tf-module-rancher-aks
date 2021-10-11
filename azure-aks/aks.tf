@@ -24,7 +24,7 @@ module "aks" {
   sku_tier                         = "Paid" # defaults to Free
   enable_role_based_access_control = false
   rbac_aad_managed                 = false
-  private_cluster_enabled          = false # default value
+  private_cluster_enabled          = true # default value
   enable_http_application_routing  = true
   enable_azure_policy              = true
   enable_auto_scaling              = true
