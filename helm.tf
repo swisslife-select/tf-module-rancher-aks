@@ -26,14 +26,13 @@ resource "azurerm_role_assignment" "aks_to_vnet" {
 
 # Install Rancher helm chart
 resource "helm_release" "nginx-ingress" {
-  timeout    = 120
+  timeout    = 600
   repository = "https://kubernetes.github.io/ingress-nginx/"
   name       = "nginx-stable"
   chart      = "ingress-nginx"
   version    = var.nginx_ingress_version
   namespace  = var.nginx_ingress_ns
   create_namespace = true
-  wait_for_jobs = true
 
   set {
     name  = "controller.service.loadBalancerIP"
