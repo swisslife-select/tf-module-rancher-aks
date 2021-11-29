@@ -15,7 +15,7 @@ variable "dns_zone_name" {
 variable "dns_resource_group_name" {
   type = string
   description = "Resource Group Name for the DNS Entries"
-  
+
 }
 
 # Variables for AKS
@@ -37,6 +37,12 @@ variable "rancher_version" {
   type = string
   description = "Version of Rancher Server to install"
   default = "v2.5.7"
+}
+
+variable "rancher_branch" {
+  type = string
+  description = "Branch of the helm repository"
+  default = "stable"
 }
 
 variable "rancher_chart_options" {
@@ -91,4 +97,10 @@ variable "client_secret" {
 variable "lb_ip_address" {
   description = "IP address of the rancher clusters load_balancer"
   type = string
+}
+
+variable "admin_username" {
+  description = "the admin username for ssh access"
+  default     = "azureuser"
+  type        = string
 }

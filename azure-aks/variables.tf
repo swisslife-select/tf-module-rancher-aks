@@ -8,7 +8,7 @@ variable "aks_min_node_count" {
   type = number
   description = "Minimum Number of nodes for AKS"
   default = 3
-  
+
 }
 
 
@@ -16,7 +16,7 @@ variable "aks_max_node_count" {
   type = number
   description = "Maximum Number of nodes for AKS"
   default = 3
-  
+
 }
 
 variable "aks_node_disk_size" {
@@ -75,4 +75,10 @@ variable "client_secret" {
   description = "(Optional) The Client Secret (password) for the Service Principal used for the AKS deployment"
   type        = string
   default     = ""
+}
+
+variable "admin_username" {
+  description = "the admin username for ssh access"
+  default     = "azureuser"
+  type        = string
 }
