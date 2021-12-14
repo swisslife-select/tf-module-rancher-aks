@@ -33,5 +33,3 @@ module "rancher_server" {
   }
   rancher_hostname = "rancher.${var.dns_zone_name}"
 }
-
-
