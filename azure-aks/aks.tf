@@ -58,7 +58,7 @@ resource "azurerm_kubernetes_cluster" "main" {
   name                                = var.aks_name_prefix
   location                            = azurerm_resource_group.rancher_aks.location
   resource_group_name                 = azurerm_resource_group.rancher_aks.name
-  dns_prefix                          = "swisslifeselect-${var.aks_name_prefix}"
+  dns_prefix                          = "${var.aks_name_prefix}"
   sku_tier                            = "Paid"
   private_cluster_enabled             = true
   private_dns_zone_id                 = "None"
