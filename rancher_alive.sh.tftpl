@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+while [[ "$(curl -k ${rancher_url}/ping)" != "pong" ]]; do
+  sleep 5;
+done

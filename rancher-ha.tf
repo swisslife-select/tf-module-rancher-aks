@@ -33,3 +33,14 @@ module "rancher_server" {
   }
   rancher_hostname = "rancher.${var.dns_zone_name}"
 }
+
+resource "null_resource" "rancher_alive" {
+  provisioner "local-exec" {
+    command = "${templatefile("${path.module}/rancher_alive.sh.tftpl", {rancher_url = "${module.rancher_server.rancher_server_url}"})}"
+  }
+  depends_on = [
+    module.rancher_server,
+    helm_release.nginx-ingress,
+    module.aks
+  ]
+}

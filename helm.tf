@@ -24,15 +24,30 @@ resource "azurerm_role_assignment" "aks_to_vnet" {
   principal_id         = module.aks.principal_id
 }
 
+data "azuread_service_principal" "client" {
+  application_id = var.client_id
+}
+
+resource "azurerm_role_assignment" "client_to_vnet" {
+  scope                = data.azurerm_virtual_network.vnet.id
+  role_definition_name = "Network Contributor"
+  principal_id         = data.azuread_service_principal.client.id
+}
+
+
 # Install Rancher helm chart
 resource "helm_release" "nginx-ingress" {
-  timeout    = 600
   repository = "https://kubernetes.github.io/ingress-nginx/"
   name       = "nginx-stable"
   chart      = "ingress-nginx"
   version    = var.nginx_ingress_version
   namespace  = var.nginx_ingress_ns
   create_namespace = true
+
+  set {
+    name  = "controller.replicaCount"
+    value = "1"
+  }
 
   set {
     name  = "controller.service.loadBalancerIP"

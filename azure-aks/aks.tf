@@ -6,6 +6,12 @@ resource "azurerm_subnet" "subnet" {
   enforce_private_link_endpoint_network_policies = true
 }
 
+resource "azurerm_role_assignment" "client_to_vnet" {
+  scope                = azurerm_subnet.subnet.id
+  role_definition_name = "Network Contributor"
+  principal_id         = data.azuread_service_principal.client.id
+}
+
 resource "tls_private_key" "ssh" {
   algorithm = "RSA"
   rsa_bits  = 2048
