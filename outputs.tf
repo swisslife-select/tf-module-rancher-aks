@@ -13,3 +13,11 @@ output "aks" {
     null_resource.rancher_alive
   ]
 }
+
+output "resource_group" {
+  value = module.aks.resource_group
+  depends_on = [
+    module.aks,
+    null_resource.rancher_alive
+  ]
+}
